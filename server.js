@@ -4,10 +4,17 @@ dotenv.config() ;
 
 import express from 'express' ;
 import mongoose from 'mongoose' ; 
+//importing routes 
+import authRoutes from './src/routes/authRoutes.js'
+
 const app = express()  ; 
 
 //MiddleWares Connection 
 app.use(express.json()) ; 
+
+
+//Using Routes 
+app.use('/api/auth',authRoutes)
 
 //Connecting Database 
 mongoose

@@ -1,7 +1,6 @@
-import { User } from '../models/userModel.js'
+import  User  from '../models/userModel.js'
 import { OTP } from '../models/otpModel.js'
 import bcrypt from 'bcrypt'
-import { request } from 'express'
 import jwt from 'jsonwebtoken';
 
 export const registerUser = async (req, res) => {
@@ -62,3 +61,4 @@ export const registerUser = async (req, res) => {
     }
 
 } 
+
