@@ -1,7 +1,8 @@
 import twilio from 'twilio';
+import User from '../models/userModel.js';
 
 const client = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
-export default sendPhoneOtp = async (phone, otpCode) => {
+export const  sendPhoneOtp =  async (phone, otpCode) => {
         try {
             const message = await client.messages.create({
                 body: `Your OTP code is: ${otpCode}`,

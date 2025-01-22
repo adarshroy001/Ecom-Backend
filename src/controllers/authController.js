@@ -2,7 +2,7 @@
 import User from '../models/userModel.js';
 import { OTP } from '../models/otpModel.js';
 import jwt from 'jsonwebtoken';
-import sendPhoneOtp from '../config/twilioConfig.js';
+import {sendPhoneOtp} from '../config/twilioConfig.js';
 
 // Constants
 const OTP_EXPIRY_TIME = 5 * 60 * 1000; // 5 minutes
