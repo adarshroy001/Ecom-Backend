@@ -6,20 +6,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 3,
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-    },
     phone: {
         type: String,
         required: true,
         unique: true,
-    },
-    password: {
-        type: String,
-        required: true,
     },
     role: {
         type: String,
@@ -29,10 +19,6 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         default: '',
-    },
-    isEmailVerified: {
-        type: Boolean,
-        default: false
     },
     isPhoneVerified: {
         type: Boolean,
