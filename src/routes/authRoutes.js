@@ -1,9 +1,15 @@
-import express from 'express' 
-import { registerUser } from '../controllers/authController.js'
+import express from 'express';
+import { registerUser, verifyOtp, resendOtp } from '../controllers/authController.js';
 
-//Creating router 
-const router = express.Router() ; 
+const router = express.Router();
 
-router.post('/new',registerUser);
+// User registration with OTP
+router.post('/new', registerUser);
 
-export default router ; 
+// OTP verification
+router.post('/verify-otp', verifyOtp);
+
+// Resend OTP
+router.post('/resend-otp', resendOtp);
+
+export default router;
