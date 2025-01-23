@@ -35,7 +35,8 @@ export const registerUser = async (req, res) => {
     await otp.save();
 
     // Send OTP via Firebase
-    await auth.sendVerificationCode(phone, otpCode);  // Firebase OTP method
+    const otpPhone = `+91${phone}`
+    await auth.sendVerificationCode(otpPhone, otpCode);  // Firebase OTP method
     res.status(201).json({ message: 'User registered successfully. Please verify your phone number.' });
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong.', error: error.message });
@@ -102,7 +103,8 @@ export const resendOtp = async (req, res) => {
     await otp.save();
 
     // Send OTP via Firebase
-    await auth.sendVerificationCode(phone, otpCode);  // Firebase OTP method
+    const otpPhone = `+91${phone}`
+    await auth.sendVerificationCode(otpPhone, otpCode);  // Firebase OTP method
     res.status(200).json({ message: 'OTP sent successfully. Please check your phone.' });
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong.', error: error.message });
