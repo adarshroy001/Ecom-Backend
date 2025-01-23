@@ -1,6 +1,7 @@
 # Node.js
 node_modules/
 .env
+src/config/ecom-ef53d-firebase-adminsdk-fbsvc-893ae7744c.json
 
 # Logs
 logs/
@@ -28,4 +29,3 @@ build/
 
 # Testing
 coverage/
-
