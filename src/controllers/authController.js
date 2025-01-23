@@ -66,7 +66,7 @@ export const logoutUser = (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful.' });
   } catch (error) {
-    res.status(500).json({ message: 'Facing Error in Login Controller . Something went wrong.', error: error.message });
+    res.status(500).json({ message: 'Facing Error in LogOut Controller . Something went wrong.', error: error.message });
   }
 };
 
