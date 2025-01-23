@@ -1,15 +1,16 @@
 import express from 'express';
-import { registerUser, verifyOtp, resendOtp } from '../controllers/authController.js';
+import { registerUser, loginUser, logoutUser } from '../controllers/authController.js';
 
 const router = express.Router();
 
-// User registration with OTP
+// User registration
 router.post('/new', registerUser);
 
-// OTP verification
-router.post('/verify-otp', verifyOtp);
+// Login 
+router.post('/login', loginUser);
 
-// Resend OTP
-router.post('/resend-otp', resendOtp);
+// Logout User (dont forgot to use delete)
+router.delete('/logout', logoutUser);
+
 
 export default router;

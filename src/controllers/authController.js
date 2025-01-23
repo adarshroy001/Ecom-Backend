@@ -1,7 +1,6 @@
 import User from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { messaging } from 'firebase-admin';
 
 // Register User
 export const registerUser = async (req, res) => {
@@ -55,7 +54,7 @@ export const loginUser = async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    res.status(200).json({ message: 'Login successful.', user: { id: user._id, name: user.name, email: user.email, role: user.role } });
+    res.status(200).json({ message: 'Login successful.', user: { id: existingUser._id, name: existingUser.name, email: existingUser.email, role: existingUser.role } });
   } catch (error) {
     res.status(500).json({ message: 'Facing Error in Login Controller . Something went wrong.', error: error.message });
   }
