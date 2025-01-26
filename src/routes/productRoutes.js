@@ -6,13 +6,16 @@ import {
     updateProduct,
     deleteProduct,
 } from "../controllers/productController.js";
+import upload from "../middleware/multerMiddleware.js";
+
+
 
 const router = express.Router();
 
-router.post("/", createProduct); // Create
+router.post("/", upload.single("image"), createProduct); // Create
 router.get("/", getAllProducts); // Read All
 router.get("/:id", getProductById); // Read Single
-router.put("/:id", updateProduct); // Update
+router.put("/:id", upload.single("image"), updateProduct); // Update
 router.delete("/:id", deleteProduct); // Delete
 
 export default router;

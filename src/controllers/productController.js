@@ -3,7 +3,8 @@ import Product from "../models/productModel.js";
 // Create a new product
 export const createProduct = async (req, res) => {
     try {
-        const { name, description, price, stock, category, image } = req.body;
+        const { name, description, price, stock, category } = req.body;
+        const image = req.file ? req.file.path : ""; // Cloudinary URL
 
         const product = new Product({
             name,
@@ -91,11 +92,13 @@ export const getProductById = async (req, res) => {
 // Update a product
 export const updateProduct = async (req, res) => {
     try {
-        const updatedProduct = await Product.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true, runValidators: true }
-        );
+        const { name, description, price, stock, category } = req.body;
+        const image = req.file ? req.file.path : undefined;
+
+        const updatedData = { name, description, price, stock, category };
+        if (image) updatedData.image = image;
+
+        const updatedProduct = await Product.findByIdAndUpdate(req.params.id, updatedData, { new: true });
 
         if (!updatedProduct) {
             return res.status(404).json({ message: "Product not found" });
