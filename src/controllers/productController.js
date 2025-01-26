@@ -4,7 +4,9 @@ import Product from "../models/productModel.js";
 export const createProduct = async (req, res) => {
     try {
         const { name, description, price, stock, category } = req.body;
-        const image = req.file ? req.file.path : ""; // Cloudinary URL
+
+        // Map image URLs from Cloudinary
+        const images = req.files.map(file => file.path);
 
         const product = new Product({
             name,
@@ -12,7 +14,7 @@ export const createProduct = async (req, res) => {
             price,
             stock,
             category,
-            image,
+            images,
         });
 
         const savedProduct = await product.save();
@@ -93,10 +95,11 @@ export const getProductById = async (req, res) => {
 export const updateProduct = async (req, res) => {
     try {
         const { name, description, price, stock, category } = req.body;
-        const image = req.file ? req.file.path : undefined;
 
+        const images = req.files.map(file => file.path); // New images
         const updatedData = { name, description, price, stock, category };
-        if (image) updatedData.image = image;
+
+        if (images.length > 0) updatedData.images = images;
 
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, updatedData, { new: true });
 

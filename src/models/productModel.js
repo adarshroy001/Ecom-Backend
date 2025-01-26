@@ -35,9 +35,9 @@ const productSchema = new mongoose.Schema({
         ],
         required: true,
     },
-    image: {
-        type: String,
-        default: '', // URL or path to the product image
+    images: {
+        type: [String],
+        default: [], // URL or path to the product image
     },
     createdAt: {
         type: Date,
