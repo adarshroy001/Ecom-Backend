@@ -7,7 +7,7 @@ import mongoose from 'mongoose' ;
 //importing routes 
 import authRoutes from './src/routes/authRoutes.js'
 import cartRoutes from './src/routes/cartRoutes.js'
-import productRoutes from "./routes/productRoutes.js";
+import productRoutes from "./src/routes/productRoutes.js";
 
 
 const app = express()  ; 
