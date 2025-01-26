@@ -7,6 +7,8 @@ import mongoose from 'mongoose' ;
 //importing routes 
 import authRoutes from './src/routes/authRoutes.js'
 import cartRoutes from './src/routes/cartRoutes.js'
+import productRoutes from "./routes/productRoutes.js";
+
 
 const app = express()  ; 
 
@@ -17,6 +19,8 @@ app.use(express.json()) ;
 //Using Routes 
 app.use('/api/auth',authRoutes)
 app.use('/api/cart',cartRoutes)
+app.use("/api/products", productRoutes);
+
 
 //Connecting Database 
 mongoose
