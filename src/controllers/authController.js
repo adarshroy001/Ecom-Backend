@@ -7,6 +7,14 @@ export const registerUser = async (req, res) => {
   const { name, phone, email, password, role } = req.body;
 
   try {
+    // Log received password and check regex
+    console.log("Request Body:", req.body);
+    
+    const passwordValidation = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordValidation.test(password)) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters long and include at least one letter and one number.' });
+    }
+
     const existingUser = await User.findOne({ $or: [{ phone }, { email }] });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists with this phone number or email.' });
@@ -28,14 +36,16 @@ export const registerUser = async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 7 * 24 * 60 * 60 * 1000, //7days
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     res.status(201).json({ message: 'User registered successfully.', user: { id: newUser._id, name: newUser.name, email: newUser.email, role: newUser.role } });
   } catch (error) {
-    res.status(500).json({ message: 'Facing Error in Signup Controller . Something went wrong.', error: error.message });
+    console.error("Error during registration:", error);
+    res.status(500).json({ message: 'Facing Error in Signup Controller. Something went wrong.', error: error.message });
   }
 };
+
 // Login User
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;

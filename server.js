@@ -4,6 +4,9 @@ dotenv.config() ;
 
 import express from 'express' ;
 import mongoose from 'mongoose' ; 
+
+//Importing Cors 
+import cors from 'cors'
 //importing routes 
 import authRoutes from './src/routes/authRoutes.js'
 import cartRoutes from './src/routes/cartRoutes.js'
@@ -14,6 +17,15 @@ const app = express()  ;
 
 //MiddleWares Connection 
 app.use(express.json()) ; 
+
+// Use CORS middleware
+app.use(
+       cors({
+         origin: "http://localhost:5173", // Allow your frontend origin
+         methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed HTTP methods
+         credentials: true, // Allow cookies if needed
+       })
+     );
 
 
 //Using Routes 

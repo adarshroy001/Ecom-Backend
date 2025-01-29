@@ -2,47 +2,43 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     name: {
-        type: String,
-        required: true,
-        minlength: 3,
+      type: String,
+      required: true,
+      minlength: 3,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
     },
     phone: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    email:{
-        type: String,
-        required: true,
-        unique: true,
+      type: String,
+      required: true,
+      unique: true,
     },
     password: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function (value) {
-                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(value);
-            },
-            message: 'Password must be at least 8 characters long and include uppercase, lowercase, number, and a special character.',
-        },
-    },    
+      type: String,
+      required: true,
+      minlength: 8,
+    //   validate: {
+    //     validator: function(value) {
+    //       // Regex to check for at least one letter, one number, and a minimum of 8 characters
+    //       return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value);
+    //     },
+    //     message: 'Password must be at least 8 characters long and include at least one letter and one number.',
+    //   },
+    },
     role: {
-        type: String,
-        enum: ['user', 'admin'],
-        default: 'user',
-    },
-    address: {
-        type: String,
-        default: '',
-    },
-    isPhoneVerified: {
-        type: Boolean,
-        default: false
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
     },
     createdAt: {
-        type: Date,
-        default: Date.now,
+      type: Date,
+      default: Date.now,
     },
-})
-const User = mongoose.model('User', userSchema);
-export default User; 
+  });
+  
+  const User = mongoose.model('User', userSchema);
+export default User;
