@@ -9,7 +9,7 @@ export const registerUser = async (req, res) => {
   try {
     // Log received password and check regex
     console.log("Request Body:", req.body);
-    
+
     const passwordValidation = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!passwordValidation.test(password)) {
       return res.status(400).json({ message: 'Password must be at least 8 characters long and include at least one letter and one number.' });
@@ -45,7 +45,6 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: 'Facing Error in Signup Controller. Something went wrong.', error: error.message });
   }
 };
-
 // Login User
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -78,7 +77,18 @@ export const logoutUser = (req, res) => {
     res.status(500).json({ message: 'Facing Error in LogOut Controller . Something went wrong.', error: error.message });
   }
 };
-
+//Getting User Info 
+export const getUserInfo = (req, res) => {
+  try {
+      const { name, email, phone ,createdAt } = req.body;
+      console.log(req.user);
+      
+      return res.status(200).json({ name, email, phone,createdAt }); // Proper JSON response
+  } catch (error) {
+      console.error('Error in getUserInfo Controller:', error.message);
+      return res.status(500).json({ message: 'Error retrieving user info.', error: error.message });
+  }
+};
 
 
 
