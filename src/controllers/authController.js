@@ -63,7 +63,7 @@ export const loginUser = async (req, res) => {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    res.status(200).json({ message: 'Login successful.', user: { id: existingUser._id, name: existingUser.name, email: existingUser.email, role: existingUser.role } });
+    res.status(200).json({ message: 'Login successful.', token , user: { id: existingUser._id, name: existingUser.name, email: existingUser.email, role: existingUser.role  } });
   } catch (error) {
     res.status(500).json({ message: 'Facing Error in Login Controller . Something went wrong.', error: error.message });
   }
@@ -78,15 +78,20 @@ export const logoutUser = (req, res) => {
   }
 };
 //Getting User Info 
-export const getUserInfo = (req, res) => {
+export const getUserInfo = async (req, res) => {
   try {
-      const { name, email, phone ,createdAt } = req.body;
-      console.log(req.user);
-      
-      return res.status(200).json({ name, email, phone,createdAt }); // Proper JSON response
+    const authHeader = req.header('Authorization'); // Expecting 'Bearer <token>'
+    const  token  = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne(decoded._id)
+    req.user = user
+    res.status(200).json({
+      success: true,
+      user: req.user
+    })
   } catch (error) {
-      console.error('Error in getUserInfo Controller:', error.message);
-      return res.status(500).json({ message: 'Error retrieving user info.', error: error.message });
+    console.error('Error in getUserInfo Controller:', error.message);
+    return res.status(500).json({ message: 'Error retrieving user info.', error: error.message });
   }
 };
 
