@@ -15,6 +15,7 @@ const isAuthenticated = (req, res, next) => {
 
         // Verify the token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded
         next(); // Proceed to the next middleware or route handler
     } catch (error) {
         console.error('JWT Verification Error:', error.message); // Log the error for debugging

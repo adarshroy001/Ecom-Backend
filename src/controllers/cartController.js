@@ -3,7 +3,7 @@ import Cart from "../models/cartModel.js";
 // Add item to cart
 const addItemToCart = async (req, res) => {
     const { productId, quantity } = req.body;
-    const userId = req.user._id; // Extract user ID from middleware
+    const userId = req.user.id; // Extract user ID from middleware
 
     try {
         let cart = await Cart.findOne({ userId });
@@ -30,7 +30,7 @@ const addItemToCart = async (req, res) => {
 //  Update cart item quantity
 const updateCart = async (req, res) => {
     const { productId, quantity } = req.body;
-    const userId = req.user._id; // Extract user ID from middleware
+    const userId = req.user.id; // Extract user ID from middleware
 
     try {
         const cart = await Cart.findOne({ userId });
@@ -52,7 +52,7 @@ const updateCart = async (req, res) => {
 //  Delete a specific cart item
 const deleteCartItem = async (req, res) => {
     const { productId } = req.params; // Now extracting from params
-    const userId = req.user._id; // Extract user ID from middleware
+    const userId = req.user.id; // Extract user ID from middleware
 
     try {
         const cart = await Cart.findOne({ userId });
@@ -70,7 +70,7 @@ const deleteCartItem = async (req, res) => {
 
 //  Clear all items in the cart
 const clearCart = async (req, res) => {
-    const userId = req.user._id;
+  const userId = req.user.id; // Extract user ID from middleware
 
     try {
         const cart = await Cart.findOne({ userId });
@@ -88,7 +88,7 @@ const clearCart = async (req, res) => {
 
 // Get all cart items for a user
 const getCartItems = async (req, res) => {
-    const userId = req.user._id; // Extract user ID from middleware
+  const userId = req.user.id; // Extract user ID from middleware
 
     try {
         const cart = await Cart.findOne({ userId }).populate("items.productId"); // Populate product details
