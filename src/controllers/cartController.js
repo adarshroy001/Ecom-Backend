@@ -51,7 +51,7 @@ const updateCart = async (req, res) => {
 
 //  Delete a specific cart item
 const deleteCartItem = async (req, res) => {
-    const { productId } = req.body;
+    const { productId } = req.params; // 🔄 Now extracting from params
     const userId = req.user._id; // Extract user ID from middleware
 
     try {

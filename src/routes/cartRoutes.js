@@ -1,19 +1,19 @@
-import express from 'express';
-import isAuthenticated from '../middleware/authMiddleware.js';
-import { addItemToCart, updateCart, deleteCartItem, clearCart } from '../controllers/cartController.js';
+import express from "express";
+import { 
+    addItemToCart, 
+    updateCart, 
+    deleteCartItem, 
+    clearCart, 
+    getCartItems 
+} from "../controllers/cartController.js";
+import isAuthenticated from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Add an item to the cart
-router.post('/cart/add', isAuthenticated, addItemToCart);
-
-// Update an item's quantity in the cart
-router.patch('/cart/update', isAuthenticated, updateCart);
-
-// Delete a specific item from the cart
-router.delete('/cart/item/delete', isAuthenticated, deleteCartItem);
-
-// Clear the entire cart
-router.delete('/cart/clear', isAuthenticated, clearCart);
+router.get("/", isAuthenticated, getCartItems); // Get all cart products for a user
+router.post("/add", isAuthenticated, addItemToCart); // Add an item to the cart
+router.put("/update", isAuthenticated, updateCart); // Update cart item quantity
+router.delete("/remove/:productId", isAuthenticated, deleteCartItem); // Remove a specific item from cart
+router.delete("/clear", isAuthenticated, clearCart); // Clear all items from the cart
 
 export default router;
