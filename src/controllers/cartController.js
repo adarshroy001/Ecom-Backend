@@ -4,7 +4,6 @@ import Cart from "../models/cartModel.js";
 const addItemToCart = async (req, res) => {
     const { productId, quantity } = req.body;
     const userId = req.user.id; // Extract user ID from middleware
-
     try {
         let cart = await Cart.findOne({ userId });
 

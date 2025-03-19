@@ -36,7 +36,7 @@ export const registerUser = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    res.status(201).json({ message: 'User registered successfully.', user: { id: newUser._id, name: newUser.name, email: newUser.email, phone:newUser.phone , role: newUser.role ,createdAt } });
+    res.status(201).json({ message: 'User registered successfully.', user: { id: newUser._id, name: newUser.name, email: newUser.email, phone:newUser.phone , role: newUser.role ,createdAt: newUser.createdAt } });
   } catch (error) {
     console.error("Error during registration:", error);
     res.status(500).json({ message: 'Facing Error in Signup Controller. Something went wrong.', error: error.message });
