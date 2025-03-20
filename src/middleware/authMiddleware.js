@@ -1,27 +1,22 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const isAuthenticated = (req, res, next) => {
-    const authHeader = req.header('Authorization'); // Expecting 'Bearer <token>'
-    if (!authHeader) {
-        return res.status(401).json({ message: 'Access denied. No token provided.' });
+    console.log("Cookies received:", req.cookies); // Check if the token is present
+    const token = req.cookies.token;
+
+    if (!token) {
+        console.error("No token provided");
+        return res.status(401).json({ message: "Access denied. No token provided." });
     }
 
     try {
-        // Extract the token after 'Bearer'
-        const token = authHeader.split(" ")[1];
-        if (!token) {
-            return res.status(401).json({ message: 'Access denied. Token format is invalid.' });
-        }
-
-        // Verify the token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded
-        next(); // Proceed to the next middleware or route handler
+        req.user = decoded;
+        next();
     } catch (error) {
-        console.error('JWT Verification Error:', error.message); // Log the error for debugging
-        res.status(403).json({ message: 'Invalid or expired token.', error: error.message });
+        console.error("JWT Verification Error:", error.message);
+        res.status(403).json({ message: "Invalid or expired token.", error: error.message });
     }
 };
 
 export default isAuthenticated;
-
