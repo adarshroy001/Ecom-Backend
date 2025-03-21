@@ -31,7 +31,7 @@ export const registerUser = async (req, res) => {
       // secure: process.env.NODE_ENV === "Development" ? false : true,
       // secure: process.env.NODE_ENV === 'production',
       secure: true, // Use 'true' in production with HTTPS
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     })
       .status(201).json({ message: 'User registered successfully.', user: { id: newUser._id, name: newUser.name, email: newUser.email, phone: newUser.phone, role: newUser.role, createdAt: newUser.createdAt } });
@@ -57,7 +57,7 @@ export const loginUser = async (req, res) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === 'production',
       secure: true, // Use 'true' in production with HTTPS
-      sameSite: "strict",
+      sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(200).json({ message: 'Login successful.', user: { id: existingUser._id, name: existingUser.name, email: existingUser.email, role: existingUser.role } });

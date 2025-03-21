@@ -11,18 +11,19 @@ import cors from 'cors'
 import authRoutes from './src/routes/authRoutes.js'
 import cartRoutes from './src/routes/cartRoutes.js'
 import productRoutes from "./src/routes/productRoutes.js";
+import cookieParser from 'cookie-parser';
 
 
 const app = express()  ; 
 
 //MiddleWares Connection 
 app.use(express.json()) ; 
+app.use(cookieParser());
 
 // Use CORS middleware
 app.use(
        cors({
          origin: "http://localhost:5173", // Allow your frontend origin
-         methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed HTTP methods
          credentials: true, // Allow cookies if needed
        })
      );
