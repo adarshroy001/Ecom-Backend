@@ -3,28 +3,34 @@ import Cart from "../models/cartModel.js";
 // Add item to cart
 const addItemToCart = async (req, res) => {
     const { productId, quantity } = req.body;
-    const userId = req.user.id; // Extract user ID from middleware
+    const userId = req.user.id;
+
+    if (!productId || quantity <= 0) {
+        return res.status(400).json({ message: "Invalid product ID or quantity" });
+    }
+
     try {
         let cart = await Cart.findOne({ userId });
 
         if (!cart) {
             cart = new Cart({ userId, items: [{ productId, quantity }] });
         } else {
-            const existingItemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
-            if (existingItemIndex !== -1) {
-                cart.items[existingItemIndex].quantity += quantity;
+            const existingItem = cart.items.find(item => item.productId.toString() === productId);
+            if (existingItem) {
+                existingItem.quantity += quantity;
             } else {
                 cart.items.push({ productId, quantity });
             }
         }
 
         await cart.save();
-        res.status(200).json({ message: "Item added to cart successfully.", cart });
+        res.status(200).json({ success: true, message: "Item added to cart successfully.", cart });
     } catch (error) {
         console.error("Error adding item to cart:", error);
-        res.status(500).json({ message: "Failed to add item to cart.", error: error.message });
+        res.status(500).json({ success: false, message: "Failed to add item to cart.", error: error.message });
     }
 };
+
 
 //  Update cart item quantity
 const updateCart = async (req, res) => {
