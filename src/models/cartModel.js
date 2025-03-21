@@ -31,5 +31,23 @@ const cartSchema = new mongoose.Schema({
     },
 });
 
+// Middleware to calculate `totalPrice` before saving
+cartSchema.pre("save", async function (next) {
+    try {
+        // Populate product details to get price
+        await this.populate("items.productId");
+
+        // Calculate total price
+        this.totalPrice = this.items.reduce((sum, item) => {
+            return sum + item.productId.price * item.quantity;
+        }, 0);
+
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 const Cart = mongoose.model('Cart', cartSchema);
 export default Cart;
