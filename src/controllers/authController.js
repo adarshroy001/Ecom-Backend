@@ -68,7 +68,7 @@ export const loginUser = async (req, res) => {
 // Logout User
 export const logoutUser = (req, res) => {
   try {
-    res.clearCookie('token');
+    res.clearCookie('token',{ path: '/' });
     res.status(200).json({ message: 'Logout successful.' });
   } catch (error) {
     res.status(500).json({ message: 'Facing Error in LogOut Controller . Something went wrong.', error: error.message });
@@ -76,15 +76,11 @@ export const logoutUser = (req, res) => {
 };
 //Getting User Info 
 export const getUserInfo = async (req, res) => {
-  console.log("Cookies received in getUserInfo:", req.cookies); 
-
   const token = req.cookies.token;
   if (!token) return res.status(401).json({ success: false, message: "Not logged in" });
 
   try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log("Decoded token:", decoded);
-
       const user = await User.findById(decoded.id).select("-password");
       if (!user) return res.status(404).json({ success: false, message: "User not found" });
 

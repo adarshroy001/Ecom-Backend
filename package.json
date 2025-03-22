@@ -27,6 +27,7 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^3.1.9",
+    "razorpay": "^2.9.6",
     "simple-git": "^3.27.0",
     "twilio": "^5.4.2"
   }

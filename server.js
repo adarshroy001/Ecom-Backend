@@ -11,6 +11,7 @@ import cors from 'cors'
 import authRoutes from './src/routes/authRoutes.js'
 import cartRoutes from './src/routes/cartRoutes.js'
 import productRoutes from "./src/routes/productRoutes.js";
+import paymentRoutes from "./src/routes/paymentRoutes.js";
 import cookieParser from 'cookie-parser';
 
 
@@ -33,6 +34,8 @@ app.use(
 app.use('/api/auth',authRoutes)
 app.use('/api/cart',cartRoutes)
 app.use("/api/products", productRoutes);
+// Use the payment routes
+app.use("/api/payment", paymentRoutes);
 
 
 //Connecting Database 

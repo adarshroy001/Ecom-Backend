@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const isAuthenticated = (req, res, next) => {
-    console.log("Cookies received:", req.cookies); // Check if the token is present
+// Check if the token is present
     const token = req.cookies.token;
 
     if (!token) {
