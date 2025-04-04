@@ -5,7 +5,6 @@ const isAuthenticated = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-        console.error("No token provided");
         return res.status(401).json({ message: "Access denied. No token provided." });
     }
 
