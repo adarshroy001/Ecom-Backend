@@ -25,7 +25,7 @@ app.use(cookieParser());
 // Use CORS middleware
 app.use(
        cors({
-         origin: "http://localhost:5173", // Allow your frontend origin
+         origin:  ["http://localhost:5173", "https://food-jsr.netlify.app"],
          credentials: true, // Allow cookies if needed
        })
      );
